@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppRouter isLogin={false} socket={socket} />
+      <AppRouter isLogin={true} socket={socket} />
     </div>
   );
 }

@@ -4,17 +4,50 @@
   background-color: lightcyan;
   align-items: center;
   padding: 10px;
-  .enterRoomForm {
-    width: 400px;
-    padding: 20px;
+  .categoryContainer {
     display: flex;
-    flex-direction: column;
-    input {
-      padding: 10px;
-      font-size: large;
+    flex-direction: row;
+    div {
+      margin: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      // border: 1px solid lightgray;
+      border-radius: 7px;
+      p {
+        font-size: large;
+        font-weight: bold;
+      }
     }
-    input:first-child {
-      margin-bottom: 10px;
+    form {
+      display: flex;
+      flex-direction: column;
+      input {
+        padding: 10px;
+        font-size: large;
+        border-radius: 7px;
+        border: 1px solid lightgray;
+      }
+      input:first-child {
+        margin-bottom: 10px;
+      }
+    }
+    .newMeetingContainer {
+      input:last-child {
+        background-color: tomato;
+        border: none;
+        color: white;
+        font-weight: bold;
+      }
+    }
+    .JoinMeetingContainer {
+      input:last-child {
+        background-color: rgb(71, 181, 255);
+        border: none;
+        color: white;
+        font-weight: bold;
+      }
     }
   }
 }

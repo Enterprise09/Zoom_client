@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import "../scss/Home.scss";
+import JoinMeetingForm from "./JoinMeetingForm";
+import NewMeetingForm from "./NewMeetingForm";
 
 function Home({ socket }) {
-  const [isSubmit, setIsSubmit] = useState(false);
-  function onSubmit(event) {
-    event.preventDefault();
-    setIsSubmit(true);
-  }
+  const [isNewClick, setIsNewClick] = useState(false);
+  const [isJoinClick, setIsJoinClick] = useState(false);
 
+  function onNewClick() {
+    setIsNewClick(!isNewClick);
+  }
+  function onJoinClick() {
+    setIsJoinClick(!isJoinClick);
+  }
   return (
     <div className="home_container">
-      <h1>Zoom Client</h1>
-      {isSubmit ? (
-        <div>
-          <h1>This is call!</h1>
+      <h1>Welcome back!</h1>
+      <div className="categoryContainer">
+        <div onClick={onNewClick}>
+          <img src="img/new.png" width={60} />
+          <p>New</p>
+          {isNewClick && <NewMeetingForm />}
         </div>
-      ) : (
-        <form className="enterRoomForm" onSubmit={onSubmit}>
-          <input
-            className="roomName"
-            name="roomName"
-            type="text"
-            required
-            placeholder="Enter room"
-            maxLength="15"
-          />
-          <input type="submit" value="Enter" />
-        </form>
-      )}
+        <div onClick={onJoinClick}>
+          <img src="img/join.png" width={60} />
+          <p>Join</p>
+          {isJoinClick && <JoinMeetingForm />}
+        </div>
+      </div>
     </div>
   );
 }

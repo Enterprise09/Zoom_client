@@ -9,7 +9,7 @@
     width: 50%;
     padding: 10px;
     input {
-      background-color: rgb(213, 240, 248);
+      background-color: rgb(230, 247, 252);
       font-size: large;
       padding: 10px;
       margin-bottom: 10px;
@@ -21,10 +21,11 @@
     }
     input:last-child {
       margin: 0px;
-      background-color: lightgray;
+      background-color: rgb(255, 134, 112);
       color: white;
       font-weight: bold;
       border: none;
+      cursor: pointer;
     }
   }
   hr {
