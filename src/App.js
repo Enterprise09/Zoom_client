@@ -4,10 +4,9 @@ import AppRouter from "./Components/Router";
 
 function App() {
   const socket = io("http://localhost:3002");
-
   return (
     <div className="App">
-      <AppRouter isLogin={true} socket={socket} />
+      <AppRouter isLogin={false} socket={socket} />
     </div>
   );
 }

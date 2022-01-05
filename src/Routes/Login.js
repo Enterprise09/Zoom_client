@@ -6,7 +6,7 @@ function Login({ socket }) {
   const [pw, setPw] = useState("");
   function onSubmit(event) {
     event.preventDefault();
-    socket.emit("login", email, pw);
+    window.localStorage.setItem("id", email);
   }
   function onChange(event) {
     const {
@@ -31,7 +31,7 @@ function Login({ socket }) {
           value={email}
           onChange={onChange}
           required
-          maxLength={12}
+          maxLength={30}
           placeholder="Enter email"
         />
         <input

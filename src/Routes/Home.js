@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../scss/Home.scss";
-import JoinMeetingForm from "./JoinMeetingForm";
-import NewMeetingForm from "./NewMeetingForm";
+import JoinMeetingForm from "../Components/JoinMeetingForm";
+import NewMeetingForm from "../Components/NewMeetingForm";
 
 function Home({ socket }) {
   const [isNewClick, setIsNewClick] = useState(false);
@@ -20,13 +20,13 @@ function Home({ socket }) {
         <div onClick={onNewClick}>
           <img src="img/new.png" width={60} />
           <p>New</p>
-          {isNewClick && <NewMeetingForm />}
         </div>
+        {isNewClick && <NewMeetingForm socket={socket} />}
         <div onClick={onJoinClick}>
           <img src="img/join.png" width={60} />
           <p>Join</p>
-          {isJoinClick && <JoinMeetingForm />}
         </div>
+        {isJoinClick && <JoinMeetingForm socket={socket} />}
       </div>
     </div>
   );
