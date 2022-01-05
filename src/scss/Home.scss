@@ -1,0 +1,20 @@
+.home_container {
+  display: flex;
+  flex-direction: column;
+  background-color: lightcyan;
+  align-items: center;
+  padding: 10px;
+  .enterRoomForm {
+    width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    input {
+      padding: 10px;
+      font-size: large;
+    }
+    input:first-child {
+      margin-bottom: 10px;
+    }
+  }
+}

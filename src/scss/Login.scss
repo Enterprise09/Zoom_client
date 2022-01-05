@@ -1,0 +1,47 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 10px;
+    input {
+      background-color: rgb(213, 240, 248);
+      font-size: large;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 7px;
+      border: none;
+    }
+    input:nth-child(2) {
+      margin-bottom: 40px;
+    }
+    input:last-child {
+      margin: 0px;
+      background-color: lightgray;
+      color: white;
+      font-weight: bold;
+      border: none;
+    }
+  }
+  hr {
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  span {
+    font-size: large;
+    font-weight: bold;
+  }
+  .oAuthLogin {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin: 30px;
+    }
+  }
+}
