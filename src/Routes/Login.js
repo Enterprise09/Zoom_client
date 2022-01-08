@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "../scss/Login.scss";
 
-function Login({ socket }) {
+function Login({ socket, authStateChange }) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
-  function onSubmit(event) {
+  const [isNew, setIsNew] = useState(true);
+  async function onSubmit(event) {
     event.preventDefault();
-    window.localStorage.setItem("id", email);
+    await window.localStorage.setItem("auth", true);
+    authStateChange();
   }
   function onChange(event) {
     const {
@@ -20,6 +22,9 @@ function Login({ socket }) {
         setPw(value);
         break;
     }
+  }
+  function onToggleClick() {
+    setIsNew(!isNew);
   }
   return (
     <div className="loginContainer">
@@ -43,8 +48,11 @@ function Login({ socket }) {
           maxLength={12}
           placeholder="Enter password"
         />
-        <input type="submit" value="Login" />
+        <input type="submit" value={isNew ? "Register" : "Login"} />
       </form>
+      <span className="toggleLogin" onClick={onToggleClick}>
+        {isNew ? "로그인" : "회원가입"}
+      </span>
       <hr />
       <span>또는 다음으로 로그인</span>
       <div className="oAuthLogin">

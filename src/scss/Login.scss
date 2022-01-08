@@ -37,12 +37,20 @@
     font-size: large;
     font-weight: bold;
   }
+  .toggleLogin {
+    font-size: medium;
+    color: gray;
+    font-weight: bold;
+    margin-top: 5px;
+    cursor: pointer;
+  }
   .oAuthLogin {
     display: flex;
     align-items: center;
 
     img {
       margin: 30px;
+      cursor: pointer;
     }
   }
 }

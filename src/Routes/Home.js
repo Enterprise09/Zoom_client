@@ -6,7 +6,7 @@ import NewMeetingForm from "../Components/NewMeetingForm";
 function Home({ socket }) {
   const [isNewClick, setIsNewClick] = useState(false);
   const [isJoinClick, setIsJoinClick] = useState(false);
-
+  console.log("Home!");
   function onNewClick() {
     setIsNewClick(!isNewClick);
   }
