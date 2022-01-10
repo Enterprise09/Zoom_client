@@ -3,7 +3,7 @@ import "../scss/Home.scss";
 import JoinMeetingForm from "../Components/JoinMeetingForm";
 import NewMeetingForm from "../Components/NewMeetingForm";
 
-function Home({ socket }) {
+function Home({ socket, userObj }) {
   const [isNewClick, setIsNewClick] = useState(false);
   const [isJoinClick, setIsJoinClick] = useState(false);
   console.log("Home!");

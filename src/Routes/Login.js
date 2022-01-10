@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { authService } from "../config/firebaseService";
 import "../scss/Login.scss";
 
-function Login({ socket, authStateChange }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [isNew, setIsNew] = useState(true);
@@ -10,47 +11,18 @@ function Login({ socket, authStateChange }) {
     event.preventDefault();
     if (isNew) {
       // 새로운 계정 -> 회원가입
-      axios({
-        method: "post",
-        baseURL: "http://localhost:3002",
-        url: "/register",
-        data: {
-          email,
-          pw,
-        },
-        withCredentials: true,
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            window.localStorage.setItem("auth", true);
-            authStateChange();
-          } else {
-            console.log("Some error with register...");
-          }
-        })
-        .catch((err) => console.log(`Register ${err}`));
+      try {
+        await authService.createUserWithEmailAndPassword(email, pw);
+      } catch (e) {
+        console.log("Register Error: ", e);
+      }
     } else {
       // 계정이 있음 -> 로그인
-      axios({
-        method: "post",
-        baseURL: "http://localhost:3002",
-        url: "/login",
-        data: {
-          email,
-          pw,
-        },
-        withCredentials: true,
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            window.localStorage.setItem("auth", true);
-            authStateChange();
-          } else {
-            console.log("Some error with login...");
-          }
-        })
-        .catch((err) => console.log(`Login ${err}`));
+      try {
+        await authService.signInWithEmailAndPassword(email, pw);
+      } catch (e) {
+        console.log("Login Error: ", e);
+      }
     }
   }
   function onChange(event) {
