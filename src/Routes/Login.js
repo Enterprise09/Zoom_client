@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { authService } from "../config/firebaseService";
+import { authService, FirebaseApp } from "../config/firebaseService";
 import "../scss/Login.scss";
 
 function Login() {
@@ -41,6 +41,30 @@ function Login() {
   function onToggleClick() {
     setIsNew(!isNew);
   }
+  async function onSocialClick(event) {
+    const {
+      target: { name },
+    } = event;
+    let provider;
+    switch (name) {
+      case "google":
+        provider = new FirebaseApp.auth.GoogleAuthProvider();
+        break;
+      case "github":
+        provider = new FirebaseApp.auth.GithubAuthProvider();
+        break;
+      case "kakao":
+        alert(
+          "카카오 로그인은 구현중에 있습니다!\n다른 로그인 방식을 선택해주세요"
+        );
+        break;
+    }
+    try {
+      await authService.signInWithPopup(provider);
+    } catch (e) {
+      console.log("Social Login Error: ", e);
+    }
+  }
   return (
     <div className="loginContainer">
       <h1>ZOOM</h1>
@@ -71,9 +95,24 @@ function Login() {
       <hr />
       <span>또는 다음으로 로그인</span>
       <div className="oAuthLogin">
-        <img src="img/google.png" width={40} />
-        <img src="img/github.png" width={40} />
-        <img src="img/kakao.png" width={40} />
+        <img
+          name="google"
+          onClick={onSocialClick}
+          src="img/google.png"
+          width={40}
+        />
+        <img
+          name="github"
+          onClick={onSocialClick}
+          src="img/github.png"
+          width={40}
+        />
+        <img
+          name="kakao"
+          onClick={onSocialClick}
+          src="img/kakao.png"
+          width={40}
+        />
       </div>
     </div>
   );

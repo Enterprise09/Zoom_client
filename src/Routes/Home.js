@@ -15,7 +15,7 @@ function Home({ socket, userObj }) {
   }
   return (
     <div className="home_container">
-      <h1>Welcome back!</h1>
+      <h1>Welcome {userObj.displayName} !</h1>
       <div className="categoryContainer">
         <div onClick={onNewClick}>
           <img src="img/new.png" width={60} />

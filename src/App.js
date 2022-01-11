@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import AppRouter from "./Components/Router";
@@ -7,10 +8,13 @@ function App() {
   const socket = io("http://localhost:3002");
   const [init, setInit] = useState(false);
   const [isLogin, setIsLogin] = useState(null);
+
+  // observe login state
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setIsLogin(user);
+        socket.emit("login", user);
       } else {
         setIsLogin(null);
       }
