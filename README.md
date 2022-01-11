@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Zoom_client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div>
+    <img src="https://img.shields.io/badge/Node.js-14.15.1-brightgreen">
+    <img src="https://img.shields.io/badge/Develop-~ing-orange">
+</div>
 
-## Available Scripts
+> Getting Started with Create React App
 
-In the project directory, you can run:
+## What is Zoom_client project?
 
-### `npm start`
+- 화상 회의, 통화를 웹브라우저 상에서 가능하도록 해주는 웹 어플
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 채팅(메시지) 기능도 추가할 예정
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Socket.io를 이용한 Peer-to-Peer간의 실시간 통신
 
-### `npm test`
+## Socket.io
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> 실시간 양방향 이벤트 통신 지원
 
-### `npm run build`
+- RTCDataChannel을 이용
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  > <a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createDataChannel">Document</a>
+  >
+  > > How to use dataChannel(createDataChannel())
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - 바이너리 기반으로 빠른 속도로 주고 받을 수 있다.
+  - 따라서 그물망(Mesh) 구조로 다수를 연결해도 속도 저하를 방지할 수 있다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    <img src="https://user-images.githubusercontent.com/73864148/148980104-d7d6cc54-6f15-4b9d-b8b0-a4951e2edfd4.png" height="300">
 
-### `npm run eject`
+## Firebase
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 서버를 거치지 않고 Firebase를 이용하여 로그인 여부를 빠르게 체크
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  > 서버를 거쳐서 로그인 로직을 처리하는 것에 비해 속도가 매우 빠름
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  > `Firebase.auth.authStateChange((user) => { socket.emit("login", user)})`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Firebase 설정 파일을 `src/config/firebaseService.js`에 생성
 
-## Learn More
+  > <img src="https://user-images.githubusercontent.com/73864148/148980973-640b3747-6c69-42e1-beb0-0500b5f58914.png">
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Install
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```shell
+    # install git first
+    # or download to .zip
+    git clone https://github.com/Enterprise09/Zoom_client.git
+    cd Zoom_client
+    npm install
+    npm start
+```
 
-### Code Splitting
+- if you get some error like this
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```shell
+    npm ERR! code ERESOLVE
+    npm ERR! ERESOLVE unable to resolve dependency tree
+    npm ERR!
+    npm ERR! While resolving: test@0.1.0
+    npm ERR! Found: react@17.0.2
+    npm ERR! node_modules/react
+    npm ERR!   react@"^17.0.2" from the root project
+    npm ERR!
+    npm ERR! Could not resolve dependency:
+    npm ERR! peer react@"^16.0.0" from react-onsenui@1.11.5
+    npm ERR! node_modules/react-onsenui
+    npm ERR!   react-onsenui@"*" from the root project
+    # ~~~
+```
 
-### Analyzing the Bundle Size
+> you can try this
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```shell
+    npm install --legacy-peer-deps
+```
 
-### Making a Progressive Web App
+- finally start app with `npm start`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Features
 
-### Advanced Configuration
+- 로그인, 로그아웃
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- 다수가 참여할 수 있는 화상 회의
 
-### Deployment
+- 방 만들기 및 참여하기
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- 비밀번호와 함께 비공개 방 만들기
 
-### `npm run build` fails to minify
+- 생성된 방 리스트 보여주고 참여하기
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  > 공개 및 비공개 여부 확인
+
+## Release
+
+<img src="https://img.shields.io/badge/Develop-~ing-orange">
+
+- 현재 개발 중 . . .
