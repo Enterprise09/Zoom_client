@@ -13,7 +13,7 @@ function AppRouter({ socket, isLogin }) {
             <Route path="/meeting">
               <Meeting socket={socket} />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <Home socket={socket} userObj={isLogin} />
             </Route>
           </>
