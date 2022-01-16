@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { authService, FirebaseApp } from "../config/firebaseService";
 import "../scss/Login.scss";
 
-function Login({ socket, authStateChange }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [isNew, setIsNew] = useState(true);
@@ -10,47 +11,18 @@ function Login({ socket, authStateChange }) {
     event.preventDefault();
     if (isNew) {
       // 새로운 계정 -> 회원가입
-      axios({
-        method: "post",
-        baseURL: "http://localhost:3002",
-        url: "/register",
-        data: {
-          email,
-          pw,
-        },
-        withCredentials: true,
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            window.localStorage.setItem("auth", true);
-            authStateChange();
-          } else {
-            console.log("Some error with register...");
-          }
-        })
-        .catch((err) => console.log(`Register ${err}`));
+      try {
+        await authService.createUserWithEmailAndPassword(email, pw);
+      } catch (e) {
+        console.log("Register Error: ", e);
+      }
     } else {
       // 계정이 있음 -> 로그인
-      axios({
-        method: "post",
-        baseURL: "http://localhost:3002",
-        url: "/login",
-        data: {
-          email,
-          pw,
-        },
-        withCredentials: true,
-      })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            window.localStorage.setItem("auth", true);
-            authStateChange();
-          } else {
-            console.log("Some error with login...");
-          }
-        })
-        .catch((err) => console.log(`Login ${err}`));
+      try {
+        await authService.signInWithEmailAndPassword(email, pw);
+      } catch (e) {
+        console.log("Login Error: ", e);
+      }
     }
   }
   function onChange(event) {
@@ -68,6 +40,30 @@ function Login({ socket, authStateChange }) {
   }
   function onToggleClick() {
     setIsNew(!isNew);
+  }
+  async function onSocialClick(event) {
+    const {
+      target: { name },
+    } = event;
+    let provider;
+    switch (name) {
+      case "google":
+        provider = new FirebaseApp.auth.GoogleAuthProvider();
+        break;
+      case "github":
+        provider = new FirebaseApp.auth.GithubAuthProvider();
+        break;
+      case "kakao":
+        alert(
+          "카카오 로그인은 구현중에 있습니다!\n다른 로그인 방식을 선택해주세요"
+        );
+        break;
+    }
+    try {
+      await authService.signInWithPopup(provider);
+    } catch (e) {
+      console.log("Social Login Error: ", e);
+    }
   }
   return (
     <div className="loginContainer">
@@ -99,9 +95,24 @@ function Login({ socket, authStateChange }) {
       <hr />
       <span>또는 다음으로 로그인</span>
       <div className="oAuthLogin">
-        <img src="img/google.png" width={40} />
-        <img src="img/github.png" width={40} />
-        <img src="img/kakao.png" width={40} />
+        <img
+          name="google"
+          onClick={onSocialClick}
+          src="img/google.png"
+          width={40}
+        />
+        <img
+          name="github"
+          onClick={onSocialClick}
+          src="img/github.png"
+          width={40}
+        />
+        <img
+          name="kakao"
+          onClick={onSocialClick}
+          src="img/kakao.png"
+          width={40}
+        />
       </div>
     </div>
   );

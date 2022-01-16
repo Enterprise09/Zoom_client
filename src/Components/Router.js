@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Home from "../Routes/Home";
 import Login from "../Routes/Login";
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Meeting from "../Routes/Meeting";
 
-function AppRouter({ socket, isLogin, authStateChange }) {
-  console.log(isLogin);
+function AppRouter({ socket, isLogin }) {
   return (
     <Router>
       <Switch>
@@ -19,14 +13,14 @@ function AppRouter({ socket, isLogin, authStateChange }) {
             <Route path="/meeting">
               <Meeting socket={socket} />
             </Route>
-            <Route path="/">
-              <Home socket={socket} />
+            <Route exact path="/">
+              <Home socket={socket} userObj={isLogin} />
             </Route>
           </>
         ) : (
           <>
             <Route path="/">
-              <Login socket={socket} authStateChange={authStateChange} />
+              <Login />
             </Route>
           </>
         )}

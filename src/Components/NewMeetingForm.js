@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 function NewMeetingForm({ socket }) {
@@ -21,6 +20,8 @@ function NewMeetingForm({ socket }) {
       setRoomName(value);
     }
   }
+
+  socket.on("create_room_fail", (msg) => console.log(msg));
   return (
     <div className="newMeetingContainer">
       <form onSubmit={onSubmit}>

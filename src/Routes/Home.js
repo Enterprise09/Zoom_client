@@ -3,7 +3,7 @@ import "../scss/Home.scss";
 import JoinMeetingForm from "../Components/JoinMeetingForm";
 import NewMeetingForm from "../Components/NewMeetingForm";
 
-function Home({ socket }) {
+function Home({ socket, userObj }) {
   const [isNewClick, setIsNewClick] = useState(false);
   const [isJoinClick, setIsJoinClick] = useState(false);
   console.log("Home!");
@@ -15,7 +15,7 @@ function Home({ socket }) {
   }
   return (
     <div className="home_container">
-      <h1>Welcome back!</h1>
+      <h1>Welcome {userObj.displayName} !</h1>
       <div className="categoryContainer">
         <div onClick={onNewClick}>
           <img src="img/new.png" width={60} />
